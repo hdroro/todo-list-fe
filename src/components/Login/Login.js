@@ -82,7 +82,9 @@ function Login() {
       <div className="container">
         <div className="row px-3 px-sm-0">
           <div className="content-left col-12 col-sm-5 d-flex flex-column gap-3 py-3">
-            <div className="brand d-flex justify-content-center">Login</div>
+            <div className="brand d-sm-none d-flex justify-content-center">
+              Login
+            </div>
             <input
               type="text"
               className={`form-control ${

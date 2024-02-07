@@ -1,21 +1,35 @@
-import NavHeader from "./components/Navigation/NavHeader";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 
 import { ToastContainer } from "react-toastify";
-import AppRoutes from "./routes/AppRoutes";
+import { publicRoutes } from "./routes/routes";
 
 function App() {
   return (
     <>
       <Router>
-        <div className="app-header">
-          <NavHeader />
-        </div>
-        <div className="app-container">
-          <AppRoutes />
+        <div className="App">
+          <Switch>
+            {publicRoutes.map((route, index) => {
+              const Page = route.component;
+              const Layout = route.layout;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={route.path === "/"}
+                  render={() => (
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  )}
+                />
+              );
+            })}
+          </Switch>
         </div>
       </Router>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}

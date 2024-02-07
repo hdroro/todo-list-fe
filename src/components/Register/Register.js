@@ -73,7 +73,7 @@ function Register() {
         <div className="row px-3 px-sm-0">
           <div className="content-left col-12 col-sm-5 d-flex flex-column gap-3 py-3">
             <div className="brand d-sm-none d-flex justify-content-center">
-              facebook
+              Register
             </div>
             <div className="form-group">
               <label>Email:</label>
