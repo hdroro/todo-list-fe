@@ -1,3 +1,19 @@
+.toggle-sidebar {
+  outline: none;
+  border: none;
+  background: transparent;
+
+  &:hover {
+    background-color: #f6efee;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  margin: 15px;
+}
+
 .bg-container {
   background-color: #faf8f7;
   min-height: 100vh;
@@ -8,43 +24,38 @@
   }
 
   .name-group {
-    color: #333;
     padding-bottom: 5px;
     border-bottom: 1px solid #edd6d3;
     padding-left: 15px;
+    color: #a0180b;
 
     .username-account {
       margin-left: 5px;
     }
-
-    .toggle-sidebar {
-      outline: none;
-      border: none;
-      background: transparent;
-
-      &:hover {
-        background-color: #f6efee;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
   }
 
-  .nav-link {
-    display: flex;
-    align-items: center;
-
-    .icon-sidebar {
-      margin-right: 5px;
+  .nav-item {
+    &:hover {
+      background-color: #f6efee;
+      cursor: pointer;
     }
 
-    .add-task {
-      color: #dc4c3e;
-    }
+    .nav-link {
+      display: flex;
+      align-items: center;
 
-    .add-task-text {
-      color: #c3392c;
-      font-weight: 500;
+      .icon-sidebar {
+        margin-right: 5px;
+      }
+
+      .add-task {
+        color: #dc4c3e;
+      }
+
+      .add-task-text {
+        color: #c3392c;
+        font-weight: 500;
+      }
     }
   }
 }
