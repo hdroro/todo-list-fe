@@ -157,3 +157,88 @@ export const ToggleSidebar = ({
     ></path>
   </svg>
 );
+
+export const DueDate = ({
+  width = "16",
+  height = "16",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill="currentColor"
+      d="M12 2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8zm0 1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1.25 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm.75-5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1h7z"
+    ></path>
+  </svg>
+);
+
+export const CheckedIcon = ({
+  width = "16",
+  height = "16",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill="currentColor"
+      fill-rule="evenodd"
+      d="M8 14.001a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-1a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM5.146 8.147a.5.5 0 0 1 .708 0L7 9.294l3.146-3.147a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 0-.708Z"
+      clip-rule="evenodd"
+    ></path>
+  </svg>
+);
+
+export const RoundedIcon = ({
+  width = "24",
+  height = "24",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill="currentColor"
+      fill-rule="evenodd"
+      d="M8 14.001a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-1a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM5.146 8.147a.5.5 0 0 1 .708 0L7 9.294l3.146-3.147a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 0-.708Z"
+      clip-rule="evenodd"
+    ></path>
+  </svg>
+);
+
+export const CheckIcon = ({
+  width = "24",
+  height = "24",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 448 512"
+  >
+    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+  </svg>
+);

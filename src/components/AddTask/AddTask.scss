@@ -1,0 +1,32 @@
+.form-control:focus {
+  border-color: inherit !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.input-title-task {
+  font-weight: bold !important;
+}
+
+.input-description-task {
+  font-size: 12px !important;
+}
+
+.btn-group {
+  padding-top: 5px;
+  padding-left: 10px;
+  .due-date {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #666666;
+    border: 1px solid #e6e6e6;
+    padding: 4px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}

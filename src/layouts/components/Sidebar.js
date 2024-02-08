@@ -7,8 +7,19 @@ import {
   CalendarUpcomingDate,
   ToggleSidebar,
 } from "../../components/Icon/Icon";
+import AddTask from "../../components/AddTask/AddTask";
+import { useState } from "react";
 
 function Sidebar(props) {
+  const [isShowModalAddTask, setShowModalAddTask] = useState(false);
+
+  const handleShowModalAddTask = () => {
+    setShowModalAddTask(true);
+  };
+
+  const handleCloseModalAddTask = () => {
+    setShowModalAddTask(false);
+  };
   return (
     <>
       {
@@ -59,10 +70,14 @@ function Sidebar(props) {
 
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item mb-1">
-              <NavLink to="/app/add-task" className="nav-link link-dark">
+              <div
+                to="#"
+                className="nav-link link-dark"
+                onClick={() => handleShowModalAddTask()}
+              >
                 <AddTaskIcon className="icon-sidebar add-task" />
                 <span className="add-task-text">Add task</span>
-              </NavLink>
+              </div>
             </li>
             <li className="nav-item">
               <NavLink to="/app/today" className="nav-link link-dark">
@@ -79,6 +94,11 @@ function Sidebar(props) {
           </ul>
         </div>
       }
+
+      <AddTask
+        isShowModalAddTask={isShowModalAddTask}
+        handleCloseModalAddTask={handleCloseModalAddTask}
+      />
     </>
   );
 }
