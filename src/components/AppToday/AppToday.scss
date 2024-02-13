@@ -1,0 +1,69 @@
+.today-content {
+  padding: 60px;
+  h3 {
+    font-weight: bold;
+  }
+
+  .count-tasks {
+    font-size: 14px;
+    color: #666666;
+    .num-of-tasks {
+      margin: 0 2px;
+    }
+  }
+  .over-due {
+    margin-top: 10px;
+    h6 {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 5px 0px;
+      border-bottom: 1px solid #ebebeb;
+      cursor: pointer;
+
+      span {
+        margin-left: 5px;
+      }
+    }
+
+    .content-over-due {
+      cursor: pointer;
+      .group-item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        font-size: 14px;
+        input {
+          outline: none;
+          margin-left: 5px;
+        }
+
+        .due-date {
+          width: fit-content;
+
+          font-size: 11px !important;
+          gap: 3px !important;
+          color: #dc4c3e !important;
+
+          background: transparent;
+          display: flex;
+          align-items: center;
+          font-size: 13px;
+          color: #666666;
+          padding: 4px;
+
+          border: none;
+        }
+      }
+
+      .edit-action {
+        display: none;
+      }
+
+      &:hover .edit-action {
+        display: block;
+      }
+    }
+  }
+}
