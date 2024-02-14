@@ -1,0 +1,61 @@
+.content-of-date {
+  cursor: pointer;
+  padding-bottom: 5px;
+
+  padding: 10px;
+  border: 1px solid #c1c1c1;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  }
+  .group-item {
+    display: flex;
+    width: 100%;
+
+    font-size: 14px;
+    input {
+      outline: none;
+      margin-left: 5px;
+    }
+
+    .due-date {
+      width: fit-content;
+
+      font-size: 11px !important;
+      gap: 3px !important;
+      color: #dc4c3e !important;
+
+      background: transparent;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #666666;
+      padding: 4px;
+
+      border: none;
+    }
+  }
+
+  .line {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c1c1c1;
+  }
+
+  .edit-action {
+    visibility: hidden;
+  }
+
+  &:hover .edit-action {
+    visibility: visible;
+  }
+
+  .footer-edit {
+    float: right;
+    margin-top: 10px;
+    .btn-danger {
+      margin-left: 5px;
+    }
+  }
+}

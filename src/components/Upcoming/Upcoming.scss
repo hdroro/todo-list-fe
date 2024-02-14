@@ -1,0 +1,80 @@
+.container {
+  padding: 0px 40px !important;
+
+  .header {
+    position: fixed;
+    width: 75%;
+    padding-right: 80px;
+
+    .switch-week-actions {
+      .switch-week-group {
+        border: 1px solid #c1c1c1;
+        border-radius: 7px;
+        button:first-child {
+          border-right: 1px solid #cdcccc;
+        }
+        button {
+          border: none;
+          background: transparent;
+          padding: 0;
+        }
+      }
+      .btn-today {
+        background: transparent;
+        border: 1px solid #c1c1c1;
+        border-radius: 5px;
+        font-size: 14px;
+        padding: 2px 5px;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+  }
+
+  .content-group {
+    padding-top: 90px;
+    .content-item {
+      font-size: 14px;
+      + .content-item {
+        margin-left: 15px;
+      }
+
+      .time {
+        font-weight: 500;
+      }
+
+      .count-task {
+        color: #808080;
+        margin-left: 10px;
+      }
+    }
+
+    .content-item:last-child {
+      padding-right: 40px;
+    }
+  }
+}
+
+.add-task-btn {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+
+  padding: 10px 0 0 0;
+  border-top: solid 1px #ebebeb;
+
+  .plus-icon {
+    color: #dc4c3e;
+  }
+
+  span {
+    color: #808080;
+  }
+}
