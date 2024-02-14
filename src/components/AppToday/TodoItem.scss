@@ -1,0 +1,52 @@
+.content-over-due {
+  cursor: pointer;
+  padding-bottom: 5px;
+  .group-item {
+    display: flex;
+    width: 100%;
+
+    font-size: 14px;
+    input {
+      outline: none;
+      margin-left: 5px;
+    }
+
+    .due-date {
+      width: fit-content;
+
+      font-size: 11px !important;
+      gap: 3px !important;
+      color: #dc4c3e !important;
+
+      background: transparent;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #666666;
+      padding: 4px;
+
+      border: none;
+    }
+  }
+
+  .line {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c1c1c1;
+  }
+
+  .edit-action {
+    visibility: hidden;
+  }
+
+  &:hover .edit-action {
+    visibility: visible;
+  }
+
+  .footer-edit {
+    float: right;
+    margin-top: 10px;
+    .btn-danger {
+      margin-left: 5px;
+    }
+  }
+}

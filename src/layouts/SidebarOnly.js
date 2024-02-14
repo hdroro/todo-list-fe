@@ -18,7 +18,7 @@ function SidebarOnly({ children }) {
     <div className="sidebar-wrapper">
       <div className="d-flex">
         {isShowToggleSidebarHidden && (
-          <button className="toggle-sidebar hidden">
+          <button className="toggle-sidebar d-flex hidden">
             <ToggleSidebar onClick={() => handleToggleSidebar()} />
           </button>
         )}

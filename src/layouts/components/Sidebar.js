@@ -81,7 +81,10 @@ function Sidebar(props) {
             </li>
             <li className="nav-item">
               <NavLink to="/app/today" className="nav-link link-dark">
-                <CalendarCurrentDay className="icon-sidebar" />
+                <CalendarCurrentDay
+                  className="icon-sidebar"
+                  dateCurren={new Date().getDate()}
+                />
                 Today
               </NavLink>
             </li>

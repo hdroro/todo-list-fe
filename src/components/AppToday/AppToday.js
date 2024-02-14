@@ -2,65 +2,71 @@ import { useState } from "react";
 import {
   CheckedIcon,
   ChevRonDownIcon,
-  CircleIcon,
-  DueDate,
-  EditIcon,
+  ChevRonRightIcon,
+  PlusIcon,
 } from "../Icon/Icon";
 import "./AppToday.scss";
+import TodoItem from "./TodoItem";
+import AddTask from "../AddTask/AddTask";
 
 function AppToday() {
-  const [taskName, setTaskName] = useState("");
-  const [description, setDescription] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
+  const [isShowListOverdue, setIsShowListOverdue] = useState(true);
 
-  const handleSwitchToEdit = () => {
-    setIsEdit(true);
+  const [isShowModalAddTask, setShowModalAddTask] = useState(false);
+
+  const handleShowModalAddTask = () => {
+    setShowModalAddTask(true);
+  };
+
+  const handleCloseModalAddTask = () => {
+    setShowModalAddTask(false);
+  };
+
+  const handleToggleExpand = () => {
+    setIsShowListOverdue(!isShowListOverdue);
   };
   return (
-    <div className="container">
-      <div className="today-content">
-        <h3>Today</h3>
-        <div className="count-tasks d-flex display align-items-center">
-          <CheckedIcon />
-          <span className="num-of-tasks">2 </span>
-          tasks
-        </div>
-        <div className="form-group over-due">
-          <h6>
-            <ChevRonDownIcon />
-            <span>Overdue</span>
-          </h6>
-          <div className="content-over-due d-flex mt-2">
-            <CircleIcon className="mt-1" />
-            <div className="group-item">
-              <input
-                className={`input-title-task border-0`}
-                type="text"
-                placeholder="Task name"
-                value={taskName}
-                onChange={(event) => setTaskName(event.target.value)}
-                readOnly={!isEdit}
-              />
-              <input
-                className={`input-description-task border-0`}
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                readOnly={!isEdit}
-              />
-              <button className="due-date">
-                <DueDate />8 Feb
-              </button>
-            </div>
-            <EditIcon
-              className="edit-action"
-              onClick={() => handleSwitchToEdit()}
-            />
+    <>
+      <div className="container">
+        <div className="today-content">
+          <h3>Today</h3>
+          <div className="count-tasks d-flex display align-items-center">
+            <CheckedIcon className="checked-icon" />
+            <span className="num-of-tasks">2 </span>
+            tasks
+          </div>
+          <div className="form-group over-due">
+            <h6>
+              {isShowListOverdue ? (
+                <ChevRonDownIcon onClick={() => handleToggleExpand()} />
+              ) : (
+                <ChevRonRightIcon onClick={() => handleToggleExpand()} />
+              )}
+              <span>Overdue</span>
+            </h6>
+            {isShowListOverdue && <TodoItem />}
+          </div>
+
+          <div className="form-group">
+            <h6>
+              <span>14 Feb ‧ Today ‧ Wednesday</span>
+            </h6>
+            <TodoItem />
+            <button
+              className="add-task-btn"
+              onClick={() => handleShowModalAddTask()}
+            >
+              <PlusIcon className="plus-icon" />
+              <span> Add task</span>
+            </button>
           </div>
         </div>
       </div>
-    </div>
+      <AddTask
+        isShowModalAddTask={isShowModalAddTask}
+        handleCloseModalAddTask={handleCloseModalAddTask}
+      />
+    </>
   );
 }
 

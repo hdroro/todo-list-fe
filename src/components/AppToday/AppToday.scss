@@ -11,7 +11,10 @@
       margin: 0 2px;
     }
   }
-  .over-due {
+  .form-group {
+    + .form-group {
+      margin-top: 30px;
+    }
     margin-top: 10px;
     h6 {
       display: flex;
@@ -26,44 +29,37 @@
       }
     }
 
-    .content-over-due {
-      cursor: pointer;
-      .group-item {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+    .content-edit-ui {
+      border: 1px solid #c1c1c1;
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+    }
 
-        font-size: 14px;
-        input {
-          outline: none;
-          margin-left: 5px;
-        }
+    .add-task-btn {
+      width: 100%;
+      background: transparent;
+      outline: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
 
-        .due-date {
-          width: fit-content;
+      padding: 10px 0 0 0;
+      border-top: solid 1px #ebebeb;
 
-          font-size: 11px !important;
-          gap: 3px !important;
-          color: #dc4c3e !important;
-
-          background: transparent;
-          display: flex;
-          align-items: center;
-          font-size: 13px;
-          color: #666666;
-          padding: 4px;
-
-          border: none;
-        }
+      .plus-icon {
+        color: #dc4c3e;
       }
 
-      .edit-action {
-        display: none;
-      }
-
-      &:hover .edit-action {
-        display: block;
+      span {
+        color: #808080;
       }
     }
   }
+}
+
+.checked-icon:active {
+  color: red !important;
 }
