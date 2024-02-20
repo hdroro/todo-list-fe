@@ -9,11 +9,12 @@ import images from "../../assets/images";
 function Register() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const defaultValidInput = {
     isValidEmail: true,
-    isValidPhone: true,
+    isValidUsername: true,
     isValidPassword: true,
     isValidConfirmPassword: true,
   };
@@ -23,11 +24,16 @@ function Register() {
 
   const handleRegister = async () => {
     let check = isValidInputs();
-    let userData = { email, username, password };
+    let userData = { email, username, password, fullname };
     console.log(">> check userData", userData);
 
     if (check) {
-      let serverData = await registerNewUser(email, username, password);
+      let serverData = await registerNewUser(
+        email,
+        username,
+        password,
+        fullname
+      );
 
       if (+serverData.EC === 0) {
         toast.success(serverData.EM);
@@ -47,6 +53,12 @@ function Register() {
     if (!re.test(email)) {
       toast.error("Please enter a valid email address !");
       setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
+      return false;
+    }
+
+    if (!username) {
+      toast.error("Username is required !");
+      setObjCheckInput({ ...defaultValidInput, isValidUsername: false });
       return false;
     }
 
@@ -97,7 +109,19 @@ function Register() {
                 onChange={(event) => setUsername(event.target.value)}
               />
             </div>
-            <div>
+
+            <div className="form-group">
+              <label>Fullname:</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Fullname"
+                value={fullname}
+                onChange={(event) => setFullname(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
               <label>Password:</label>
               <input
                 type="password"
@@ -110,7 +134,7 @@ function Register() {
               />
             </div>
 
-            <div>
+            <div className="form-group">
               <label>Repeat password:</label>
               <input
                 type="password"

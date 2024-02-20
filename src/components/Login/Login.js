@@ -43,7 +43,7 @@ function Login() {
 
         localStorage.setItem("jwt", token);
 
-        history.push("/users");
+        history.push("/app/today");
         // window.location.reload();
 
         toast.success("Login successfully!");

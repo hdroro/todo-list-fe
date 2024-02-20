@@ -1,11 +1,11 @@
 import axios from "../setup/axios";
 
-const registerNewUser = (email, phone, username, password) => {
+const registerNewUser = (email, username, password, fullname) => {
   return axios.post("/api/v1/register", {
     email,
-    phone,
     username,
     password,
+    fullname,
   });
 };
 
