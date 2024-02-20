@@ -3,10 +3,27 @@ import { Modal, Button } from "react-bootstrap";
 import "./AddTask.scss";
 import { DueDate } from "../Icon/Icon";
 import { useState } from "react";
+import dateFormat from "../../utils/dateFormat";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function AddTask(props) {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isShowCalendar, setIsShowCalendar] = useState(false);
+
+  const [dueDate, setDueDate] = useState(dateFormat(new Date()));
+
+  const handleButtonClick = () => {
+    setIsShowCalendar(true);
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setDueDate(dateFormat(date));
+  };
+
   return (
     <>
       <Modal
@@ -41,9 +58,21 @@ function AddTask(props) {
 
               <div className="col-12 form-group">
                 <div className="btn-group">
-                  <button className="due-date">
+                  <button className="due-date" onClick={handleButtonClick}>
                     <DueDate />
-                    Due date
+                    <span style={{ marginLeft: "5px" }}>{dueDate}</span>
+                    {isShowCalendar && (
+                      <div className="datepicker">
+                        <DatePicker
+                          className="custom-datepicker"
+                          selected={selectedDate}
+                          onChange={handleDateChange}
+                          dateFormat="dd/MM/yyyy"
+                          popperPlacement="top-start"
+                          minDate={new Date()}
+                        />
+                      </div>
+                    )}
                   </button>
                 </div>
               </div>

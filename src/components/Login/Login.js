@@ -57,7 +57,7 @@ function Login() {
     setObjCheckInput(defaultValidInput);
     // let re = /\S+@\S+\.\S+/;
     if (!valueLogin) {
-      toast.error("Please enter your email address or phone number !");
+      toast.error("Please enter your email address or username !");
       setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
       return false;
     }
@@ -90,7 +90,7 @@ function Login() {
               className={`form-control ${
                 objCheckInput.isValidEmail ? "" : "is-invalid"
               }`}
-              placeholder="Email address or your phone number"
+              placeholder="Email address or your username"
               value={valueLogin}
               onChange={(event) => setValueLogin(event.target.value)}
             />

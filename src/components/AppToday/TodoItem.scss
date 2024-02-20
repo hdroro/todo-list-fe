@@ -13,7 +13,7 @@
 
     .due-date {
       width: fit-content;
-
+      position: relative;
       font-size: 11px !important;
       gap: 3px !important;
       color: #dc4c3e !important;
@@ -26,6 +26,10 @@
       padding: 4px;
 
       border: none;
+
+      input {
+        border: none;
+      }
     }
   }
 
@@ -49,4 +53,14 @@
       margin-left: 5px;
     }
   }
+}
+
+.datepicker {
+  position: absolute;
+}
+
+.custom-datepicker {
+  margin: 0;
+  background: transparent;
+  color: transparent;
 }

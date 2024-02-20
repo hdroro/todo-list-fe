@@ -1,13 +1,30 @@
 import { useState } from "react";
-import { CircleIcon, DueDate, EditIcon } from "../Icon/Icon";
+import { CircleIcon, EditIcon } from "../Icon/Icon";
 import { Button } from "react-bootstrap";
 import "./TodoItem.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dateFormat from "../../utils/dateFormat";
 
 function TodoItem() {
   const [isEdit, setIsEdit] = useState(false);
 
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isShowCalendar, setIsShowCalendar] = useState(false);
+
+  const [dueDate, setDueDate] = useState(dateFormat(new Date()));
+
+  const handleButtonClick = () => {
+    setIsShowCalendar(true);
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setDueDate(dateFormat(date));
+  };
 
   const handleSwitchToEdit = () => {
     setIsEdit(true);
@@ -46,8 +63,20 @@ function TodoItem() {
               onChange={(event) => setDescription(event.target.value)}
               readOnly={!isEdit}
             />
-            <button className="due-date">
-              <DueDate />8 Feb
+            <button className="due-date" onClick={handleButtonClick}>
+              <span>{dueDate}</span>
+              {isShowCalendar && (
+                <div className="datepicker">
+                  <DatePicker
+                    className="custom-datepicker"
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    dateFormat="dd/MM/yyyy"
+                    popperPlacement="top-start"
+                    minDate={new Date()}
+                  />
+                </div>
+              )}
             </button>
           </div>
           {!isEdit && (
