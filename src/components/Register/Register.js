@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Register.scss";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { registerNewUser } from "../../services/userService";
 import images from "../../assets/images";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../redux/slices/registerSlice";
+import Loading from "../Loading/Loading";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -22,25 +24,34 @@ function Register() {
 
   const history = useHistory();
 
-  const handleRegister = async () => {
+  const dispatch = useDispatch();
+  const registerInfo = useSelector((state) => state.auth_register.registerInfo);
+  const isLoading = useSelector((state) => state.auth_register.isLoading);
+  const isError = useSelector((state) => state.auth_register.isError);
+
+  const handleRegister = () => {
     let check = isValidInputs();
-    let userData = { email, username, password, fullname };
-    console.log(">> check userData", userData);
 
     if (check) {
-      let serverData = await registerNewUser(
-        email,
-        username,
-        password,
-        fullname
-      );
-
-      if (+serverData.EC === 0) {
-        toast.success(serverData.EM);
-        history.push("/login");
-      } else toast.error(serverData.EM);
+      dispatch(registerUser({ email, username, password, fullname }));
     }
   };
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      if (registerInfo.EC === 0) {
+        history.push("/login");
+
+        toast.success("Register successfully!");
+      } else {
+        toast.error(registerInfo.EM);
+      }
+    }
+  }, [registerInfo, isLoading, isError, history]);
+
+  if (isLoading && !isError) {
+    return <Loading />;
+  }
 
   const isValidInputs = () => {
     setObjCheckInput(defaultValidInput);

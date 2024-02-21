@@ -9,9 +9,11 @@ import {
 } from "../../components/Icon/Icon";
 import AddTask from "../../components/AddTask/AddTask";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Sidebar(props) {
   const [isShowModalAddTask, setShowModalAddTask] = useState(false);
+  const userInfo = useSelector((state) => state.auth.userInfo);
 
   const handleShowModalAddTask = () => {
     setShowModalAddTask(true);
@@ -59,7 +61,7 @@ function Sidebar(props) {
                     </a>
                   </li>
                 </ul>
-                <strong>Roro</strong>
+                <strong>{userInfo.DT.username}</strong>
               </a>
             </div>
 

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { handleUserLogin } from "../../services/userService";
 import images from "../../assets/images";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/slices/authSlice";
+import Loading from "../Loading/Loading";
 
 function Login() {
   const [valueLogin, setValueLogin] = useState("");
@@ -19,39 +21,37 @@ function Login() {
     history.push("/register");
   };
 
-  const handleLogin = async () => {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const isLoading = useSelector((state) => state.auth.isLoading);
+  const isError = useSelector((state) => state.auth.isError);
+
+  const handleLogin = () => {
     let check = isValidInputs();
-    let userData = { valueLogin, password };
 
     if (check) {
-      let response = await handleUserLogin(valueLogin, password);
-      if (response && +response.EC === 0) {
-        let groupWithRoles = response.DT.groupWithRoles;
-        let email = response.DT.email;
-        let username = response.DT.username;
-        let token = response.DT.access_token;
-        //success
-        let data = {
-          isAuthenticated: true,
-          token,
-          account: {
-            groupWithRoles,
-            email,
-            username,
-          },
-        };
+      dispatch(loginUser({ valueLogin, password }));
+    }
+  };
 
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      if (userInfo.EC === 0) {
+        let token = userInfo.DT.access_token;
         localStorage.setItem("jwt", token);
 
         history.push("/app/today");
-        // window.location.reload();
 
         toast.success("Login successfully!");
-      } else if (response && +response.EC !== 0) {
-        toast.error(response.EM);
+      } else {
+        toast.error(userInfo.EM);
       }
     }
-  };
+  }, [userInfo, isLoading, isError, history]);
+
+  if (isLoading && !isError) {
+    return <Loading />;
+  }
 
   const isValidInputs = () => {
     setObjCheckInput(defaultValidInput);
