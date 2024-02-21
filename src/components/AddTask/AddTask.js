@@ -3,17 +3,25 @@ import { Modal, Button } from "react-bootstrap";
 import "./AddTask.scss";
 import { DueDate } from "../Icon/Icon";
 import { useState } from "react";
-import dateFormat from "../../utils/dateFormat";
+import { dateFormat, convertToYearDMY } from "../../utils/dateFormat";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { createNewTask } from "../../services/taskService";
 
 function AddTask(props) {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [isShowCalendar, setIsShowCalendar] = useState(false);
 
   const [dueDate, setDueDate] = useState(dateFormat(new Date()));
+
+  const defaultValidInput = {
+    isValidTaskName: true,
+  };
+
+  const [objCheckInput, setObjCheckInput] = useState(defaultValidInput);
 
   const handleButtonClick = () => {
     setIsShowCalendar(true);
@@ -22,6 +30,38 @@ function AddTask(props) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setDueDate(dateFormat(date));
+  };
+
+  const handleAddTask = async () => {
+    let check = isValidInputs();
+    const idUser = localStorage.getItem("id");
+
+    if (check) {
+      let serverData = await createNewTask(
+        taskName,
+        description,
+        convertToYearDMY(selectedDate),
+        idUser
+      );
+
+      if (+serverData.EC === 0) {
+        toast.success(serverData.EM);
+        props.handleCloseModalAddTask();
+        setTaskName("");
+        setDescription("");
+        setSelectedDate(new Date());
+      } else toast.error(serverData.EM);
+    }
+  };
+
+  const isValidInputs = () => {
+    setObjCheckInput(defaultValidInput);
+    if (!taskName) {
+      toast.error("Task name is required !");
+      setObjCheckInput({ ...defaultValidInput, isValidTaskName: false });
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -38,7 +78,9 @@ function AddTask(props) {
               <div className="row">
                 <div className="col-12 form-group">
                   <input
-                    className={`form-control input-title-task border-0`}
+                    className={`form-control ${
+                      objCheckInput.isValidTaskName ? "" : "is-invalid"
+                    } input-title-task border-0`}
                     type="text"
                     placeholder="Task name"
                     value={taskName}
@@ -83,7 +125,9 @@ function AddTask(props) {
             <Button variant="secondary" onClick={props.handleCloseModalAddTask}>
               Cancel
             </Button>
-            <Button className="btn btn-danger">Add task</Button>
+            <Button className="btn btn-danger" onClick={() => handleAddTask()}>
+              Add task
+            </Button>
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>

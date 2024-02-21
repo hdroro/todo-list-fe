@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import "./TodoItem.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import dateFormat from "../../utils/dateFormat";
+import { dateFormat } from "../../utils/dateFormat";
 
 function TodoItem() {
   const [isEdit, setIsEdit] = useState(false);

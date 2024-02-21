@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
@@ -38,7 +39,9 @@ function Login() {
     if (!isLoading && !isError) {
       if (userInfo.EC === 0) {
         let token = userInfo.DT.access_token;
+        let id = userInfo.DT.id;
         localStorage.setItem("jwt", token);
+        localStorage.setItem("id", id);
 
         history.push("/app/today");
 

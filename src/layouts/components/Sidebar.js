@@ -8,12 +8,43 @@ import {
   ToggleSidebar,
 } from "../../components/Icon/Icon";
 import AddTask from "../../components/AddTask/AddTask";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getUserAccount } from "../../services/userService";
 
 function Sidebar(props) {
   const [isShowModalAddTask, setShowModalAddTask] = useState(false);
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const [inforUser, setInforUser] = useState({});
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await getUserAccount();
+      if (response && response.EC === 0) {
+        let email = response.DT.email;
+        let username = response.DT.username;
+        let token = response.DT.access_token;
+        //success
+        let data = {
+          isAuthenticated: true,
+          token,
+          account: {
+            email,
+            username,
+          },
+          isLoading: false,
+        };
+
+        setInforUser(data);
+      } else {
+        console.error("Failed to fetch user account data");
+      }
+    } catch (error) {
+      console.error("Error fetching user account data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   const handleShowModalAddTask = () => {
     setShowModalAddTask(true);
@@ -61,7 +92,9 @@ function Sidebar(props) {
                     </a>
                   </li>
                 </ul>
-                <strong>{userInfo.DT.username}</strong>
+                {inforUser && inforUser.account && (
+                  <strong>{inforUser.account.username}</strong>
+                )}
               </a>
             </div>
 
