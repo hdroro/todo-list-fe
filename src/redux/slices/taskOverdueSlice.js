@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../setup/axios";
 
-export const fetchTaskToday = createAsyncThunk(
-  "task/read-today",
+export const fetchTasksOverdue = createAsyncThunk(
+  "task/read-overdue",
   async (idUser) => {
-    const response = await axios.get("/api/v1/task/read-today", {
+    const response = await axios.get("/api/v1/task/read-overdue", {
       params: { idUser },
     });
     return response.DT;
@@ -12,32 +12,31 @@ export const fetchTaskToday = createAsyncThunk(
 );
 
 const initialState = {
-  listTasksToday: [],
+  listTasksOverdue: [],
   isLoading: false,
   isError: false,
 };
 
-export const taskTodaySlice = createSlice({
-  name: "task",
+export const taskOverdueSlice = createSlice({
+  name: "task_overdue",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTaskToday.pending, (state, action) => {
+      .addCase(fetchTasksOverdue.pending, (state, action) => {
         state.isLoading = true;
         state.isError = false;
       })
-      .addCase(fetchTaskToday.fulfilled, (state, action) => {
-        console.log("action.payload", action.payload);
-        state.listTasksToday = action.payload;
+      .addCase(fetchTasksOverdue.fulfilled, (state, action) => {
+        state.listTasksOverdue = action.payload;
         state.isLoading = false;
         state.isError = false;
       })
-      .addCase(fetchTaskToday.rejected, (state, action) => {
+      .addCase(fetchTasksOverdue.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
       });
   },
 });
 
-export default taskTodaySlice.reducer;
+export default taskOverdueSlice.reducer;

@@ -13,4 +13,14 @@ const createNewTask = (title, description, duedate, idUser) => {
   });
 };
 
-export { fetchAllTasks, createNewTask };
+const readTaskToday = (idUser) => {
+  return axios.get("/api/v1/task/read-today", {
+    idUser,
+  });
+};
+
+const readTaskOverDate = () => {
+  return axios.get("/api/v1/task/read-overdue");
+};
+
+export { fetchAllTasks, readTaskToday, readTaskOverDate, createNewTask };

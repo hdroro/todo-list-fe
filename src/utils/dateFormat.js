@@ -6,7 +6,8 @@ export const convertToYearDMY = (currentDate) => {
   return `${year}-${month}-${day}`;
 };
 
-export const dateFormat = (date) => {
+export const dateFormat = (date_) => {
+  const date = new Date(date_);
   const monthNames = [
     "Jan",
     "Feb",
@@ -24,5 +25,11 @@ export const dateFormat = (date) => {
   const monthIndex = date.getMonth();
   const day = date.getDate();
 
-  return `${monthNames[monthIndex]} ${day}`;
+  return `${day} ${monthNames[monthIndex]}`;
+};
+
+export const getDayOfWeek = (date_) => {
+  const date = new Date(date_);
+
+  return date.toLocaleDateString("en-US", { weekday: "long" });
 };

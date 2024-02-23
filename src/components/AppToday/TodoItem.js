@@ -6,16 +6,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormat } from "../../utils/dateFormat";
 
-function TodoItem() {
+function TodoItem(props) {
   const [isEdit, setIsEdit] = useState(false);
 
-  const [taskName, setTaskName] = useState("");
-  const [description, setDescription] = useState("");
+  const [taskName, setTaskName] = useState(props.taskName);
+  const [description, setDescription] = useState(props.description);
 
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(props.dueDate);
   const [isShowCalendar, setIsShowCalendar] = useState(false);
 
-  const [dueDate, setDueDate] = useState(dateFormat(new Date()));
+  const [dueDate, setDueDate] = useState(dateFormat(props.dueDate));
 
   const handleButtonClick = () => {
     setIsShowCalendar(true);
