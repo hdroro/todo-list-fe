@@ -1,10 +1,23 @@
-import { useState } from "react";
-import { CircleIcon, EditIcon } from "../Icon/Icon";
+import { useEffect, useState } from "react";
+import { CircleIcon, EditIcon, Trashicon } from "../Icon/Icon";
 import { Button } from "react-bootstrap";
 import "./TodoItem.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { dateFormat } from "../../utils/dateFormat";
+import { convertToYearDMY, dateFormat } from "../../utils/dateFormat";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearEditTaskResults,
+  editTask,
+} from "../../redux/slices/editTaskSlice";
+import Loading from "../Loading/Loading";
+import { toast } from "react-toastify";
+import { fetchTaskToday } from "../../redux/slices/taskSlice";
+import { fetchTasksOverdue } from "../../redux/slices/taskOverdueSlice";
+import {
+  clearDeleteTaskResults,
+  deleteTask,
+} from "../../redux/slices/deleteTaskSlice";
 
 function TodoItem(props) {
   const [isEdit, setIsEdit] = useState(false);
@@ -34,9 +47,72 @@ function TodoItem(props) {
     setIsEdit(false);
   };
 
+  const dispatch = useDispatch();
+  const updateTaskResults = useSelector(
+    (state) => state.task_update.editTaskResults
+  );
+  const isLoading = useSelector((state) => state.task_update.isLoading);
+  const isError = useSelector((state) => state.task_update.isError);
+
+  const deleteTaskResults = useSelector(
+    (state) => state.task_delete.deleteTaskResults
+  );
+  const isLoadingDelete = useSelector((state) => state.task_delete.isLoading);
+  const isErrorDelete = useSelector((state) => state.task_delete.isError);
+
   const handleSave = () => {
-    console.log("taskName", taskName, "description", description);
+    dispatch(
+      editTask({
+        id: props.id,
+        title: taskName,
+        description,
+        duedate: convertToYearDMY(selectedDate),
+      })
+    );
   };
+
+  useEffect(() => {
+    if (isLoading && !isError) return <Loading />;
+    if (!isLoading && !isError) {
+      if (+updateTaskResults.EC === 0) {
+        toast.success(updateTaskResults.EM);
+        handleCancel();
+        setTaskName("");
+        setDescription("");
+        setSelectedDate(new Date());
+        dispatch(clearEditTaskResults());
+        dispatch(fetchTasksOverdue(localStorage.getItem("id")));
+        dispatch(fetchTaskToday(localStorage.getItem("id")));
+      } else {
+        toast.error(updateTaskResults.EM);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, isError]);
+
+  const handleDelete = () => {
+    dispatch(
+      deleteTask({
+        id: props.id,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (isLoadingDelete && !isErrorDelete) return <Loading />;
+    if (!isLoadingDelete && !isErrorDelete) {
+      if (+deleteTaskResults.EC === 0) {
+        toast.success(deleteTaskResults.EM);
+        dispatch(clearDeleteTaskResults());
+        dispatch(fetchTasksOverdue(localStorage.getItem("id")));
+        dispatch(fetchTaskToday(localStorage.getItem("id")));
+      } else {
+        toast.error(deleteTaskResults.EM);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingDelete, isErrorDelete]);
+
   return (
     <div className={`content-over-due d-flex mt-2 `}>
       {!isEdit && <CircleIcon className="mt-1" />}
@@ -80,10 +156,16 @@ function TodoItem(props) {
             </button>
           </div>
           {!isEdit && (
-            <EditIcon
-              className="edit-action"
-              onClick={() => handleSwitchToEdit()}
-            />
+            <>
+              <EditIcon
+                className="edit-action mx-2"
+                onClick={() => handleSwitchToEdit()}
+              />
+              <Trashicon
+                className="edit-action"
+                onClick={() => handleDelete()}
+              />
+            </>
           )}
         </div>
         {isEdit && (

@@ -22,13 +22,13 @@ function AppToday() {
   const dispatch = useDispatch();
   const listTasksToday = useSelector((state) => state.task.listTasksToday);
   const isLoadingToday = useSelector((state) => state.task.isLoading);
-  const isErrorToday = useSelector((state) => state.task.isError);
+  // const isErrorToday = useSelector((state) => state.task.isError);
 
   const listTasksOverdue = useSelector(
     (state) => state.task_overdue.listTasksOverdue
   );
   const isLoadingOverdue = useSelector((state) => state.task_overdue.isLoading);
-  const isErrorOverdue = useSelector((state) => state.task_overdue.isError);
+  // const isErrorOverdue = useSelector((state) => state.task_overdue.isError);
 
   useEffect(() => {
     dispatch(fetchTaskToday(localStorage.getItem("id")));
@@ -74,11 +74,14 @@ function AppToday() {
                 listTasksOverdue &&
                 listTasksOverdue.length ? (
                   listTasksOverdue.map((item, index) => (
-                    <TodoItem
-                      taskName={item.title}
-                      description={item.description}
-                      dueDate={item.duedate}
-                    />
+                    <div key={index}>
+                      <TodoItem
+                        id={item.id}
+                        taskName={item.title}
+                        description={item.description}
+                        dueDate={item.duedate}
+                      />
+                    </div>
                   ))
                 ) : (
                   <></>
@@ -94,11 +97,14 @@ function AppToday() {
                 </h6>
                 {listTasksToday && listTasksToday.length ? (
                   listTasksToday.map((item, index) => (
-                    <TodoItem
-                      taskName={item.title}
-                      description={item.description}
-                      dueDate={item.duedate}
-                    />
+                    <div key={index}>
+                      <TodoItem
+                        id={item.id}
+                        taskName={item.title}
+                        description={item.description}
+                        dueDate={item.duedate}
+                      />
+                    </div>
                   ))
                 ) : (
                   <></>

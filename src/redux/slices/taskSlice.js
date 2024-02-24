@@ -28,7 +28,6 @@ export const taskTodaySlice = createSlice({
         state.isError = false;
       })
       .addCase(fetchTaskToday.fulfilled, (state, action) => {
-        console.log("action.payload", action.payload);
         state.listTasksToday = action.payload;
         state.isLoading = false;
         state.isError = false;

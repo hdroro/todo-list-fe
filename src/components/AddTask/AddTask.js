@@ -2,12 +2,15 @@
 import { Modal, Button } from "react-bootstrap";
 import "./AddTask.scss";
 import { DueDate } from "../Icon/Icon";
-import { useState } from "react";
-import { dateFormat, convertToYearDMY } from "../../utils/dateFormat";
+import { useEffect, useState } from "react";
+import { convertToYearDMY, dateFormat } from "../../utils/dateFormat";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
-import { createNewTask } from "../../services/taskService";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewTask } from "../../redux/slices/addTaskSlice";
+import Loading from "../Loading/Loading";
+import { fetchTaskToday } from "../../redux/slices/taskSlice";
 
 function AddTask(props) {
   const [taskName, setTaskName] = useState("");
@@ -32,27 +35,45 @@ function AddTask(props) {
     setDueDate(dateFormat(date));
   };
 
-  const handleAddTask = async () => {
+  const dispatch = useDispatch();
+  const createTaskResults = useSelector(
+    (state) => state.task_create.createTaskResults
+  );
+  const isLoading = useSelector((state) => state.task_create.isLoading);
+  const isError = useSelector((state) => state.task_create.isError);
+
+  const handleAddTask = () => {
     let check = isValidInputs();
     const idUser = localStorage.getItem("id");
 
     if (check) {
-      let serverData = await createNewTask(
-        taskName,
-        description,
-        convertToYearDMY(selectedDate),
-        idUser
+      dispatch(
+        createNewTask({
+          title: taskName,
+          description,
+          duedate: convertToYearDMY(selectedDate),
+          idUser,
+        })
       );
+    }
+  };
 
-      if (+serverData.EC === 0) {
-        toast.success(serverData.EM);
+  useEffect(() => {
+    if (isLoading && !isError) return <Loading />;
+    if (!isLoading && !isError) {
+      if (+createTaskResults.EC === 0) {
+        toast.success(createTaskResults.EM);
         props.handleCloseModalAddTask();
         setTaskName("");
         setDescription("");
         setSelectedDate(new Date());
-      } else toast.error(serverData.EM);
+        dispatch(fetchTaskToday(localStorage.getItem("id")));
+      } else {
+        toast.error(createTaskResults.EM);
+      }
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createTaskResults, isLoading, isError]);
 
   const isValidInputs = () => {
     setObjCheckInput(defaultValidInput);

@@ -1,4 +1,5 @@
-export const convertToYearDMY = (currentDate) => {
+export const convertToYearDMY = (currentDate_) => {
+  const currentDate = new Date(currentDate_);
   const year = currentDate.getFullYear();
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
   const day = currentDate.getDate().toString().padStart(2, "0");
