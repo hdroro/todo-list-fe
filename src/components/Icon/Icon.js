@@ -381,3 +381,48 @@ export const ChevRightWeekIcon = ({
     </g>
   </svg>
 );
+
+export const CancelIcon = ({
+  width = "24",
+  height = "24",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    class="icon_close"
+  >
+    <path
+      fill="currentColor"
+      fillRule="nonzero"
+      d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+    ></path>
+  </svg>
+);
+
+export const SaveIcon = ({
+  width = "24",
+  height = "24",
+  className,
+  onClick,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    onClick={onClick}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M7.18 6.396C7 6.642 7 7.054 7 7.878V11l6.715.674c.38.038.38.614 0 .652L7 13v3.122c0 .824 0 1.236.18 1.482.157.214.4.356.669.39.308.041.687-.15 1.444-.531l8.183-4.122c.861-.434 1.292-.651 1.432-.942a.915.915 0 0 0 0-.798c-.14-.29-.57-.508-1.433-.942l-8.18-4.122c-.758-.381-1.137-.572-1.445-.532a.986.986 0 0 0-.67.391Z"
+      clipRule="evenodd"
+    ></path>
+  </svg>
+);

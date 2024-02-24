@@ -7,6 +7,7 @@ import taskOverdueReducer from "./slices/taskOverdueSlice";
 import taskCreateReducer from "./slices/addTaskSlice";
 import taskUpdateReducer from "./slices/editTaskSlice";
 import taskDeleteReducer from "./slices/deleteTaskSlice";
+import taskUpcomingReducer from "./slices/upComingTask";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     task_create: taskCreateReducer,
     task_update: taskUpdateReducer,
     task_delete: taskDeleteReducer,
+    task_upcoming: taskUpcomingReducer,
   },
 });
 

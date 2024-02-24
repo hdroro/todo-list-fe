@@ -76,10 +76,10 @@ function AppToday() {
                   listTasksOverdue.map((item, index) => (
                     <div key={index}>
                       <TodoItem
-                        id={item.id}
-                        taskName={item.title}
-                        description={item.description}
-                        dueDate={item.duedate}
+                        id={item?.id}
+                        taskName={item?.title}
+                        description={item?.description}
+                        dueDate={item?.duedate}
                       />
                     </div>
                   ))
@@ -99,10 +99,10 @@ function AppToday() {
                   listTasksToday.map((item, index) => (
                     <div key={index}>
                       <TodoItem
-                        id={item.id}
-                        taskName={item.title}
-                        description={item.description}
-                        dueDate={item.duedate}
+                        id={item?.id}
+                        taskName={item?.title}
+                        description={item?.description}
+                        dueDate={item?.duedate}
                       />
                     </div>
                   ))

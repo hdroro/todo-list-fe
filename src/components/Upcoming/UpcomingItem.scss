@@ -52,6 +52,25 @@
   }
 
   .footer-edit {
+    button {
+      border: none;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    .btn-cancel {
+      background: #f5f5f5;
+      border-radius: 5px;
+      color: #808080;
+    }
+
+    .btn-save {
+      background: #dc4c3e;
+      border-radius: 5px;
+      color: #fff;
+    }
     float: right;
     margin-top: 10px;
     .btn-danger {

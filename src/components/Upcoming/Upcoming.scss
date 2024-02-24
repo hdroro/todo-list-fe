@@ -31,12 +31,25 @@
         }
       }
     }
+    .title-time {
+      position: relative;
+
+      .datepicker {
+        top: 0;
+      }
+    }
   }
 
   .content-group {
     padding-top: 90px;
+    h6 {
+      color: #c3392c;
+      font-style: italic;
+    }
     .content-item {
       font-size: 14px;
+      min-width: 240px;
+
       + .content-item {
         margin-left: 15px;
       }

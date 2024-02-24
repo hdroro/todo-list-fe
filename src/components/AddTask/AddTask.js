@@ -11,8 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNewTask } from "../../redux/slices/addTaskSlice";
 import Loading from "../Loading/Loading";
 import { fetchTaskToday } from "../../redux/slices/taskSlice";
+import { fetchTaskUpcoming } from "../../redux/slices/upComingTask";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function AddTask(props) {
+  let location = useLocation();
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -34,6 +37,20 @@ function AddTask(props) {
     setSelectedDate(date);
     setDueDate(dateFormat(date));
   };
+
+  useEffect(() => {
+    if (!props.isShowModalAddTask) {
+      setTaskName("");
+      setDescription("");
+      setSelectedDate(new Date());
+      setDueDate(dateFormat(new Date()));
+    }
+
+    if (props.selectedDateToAdd) {
+      setSelectedDate(props.selectedDateToAdd);
+      setDueDate(dateFormat(props.selectedDateToAdd));
+    }
+  }, [props.isShowModalAddTask, props.selectedDateToAdd]);
 
   const dispatch = useDispatch();
   const createTaskResults = useSelector(
@@ -67,7 +84,17 @@ function AddTask(props) {
         setTaskName("");
         setDescription("");
         setSelectedDate(new Date());
-        dispatch(fetchTaskToday(localStorage.getItem("id")));
+        console.log("location.pathname", location.pathname);
+        if (location.pathname === "/app/today") {
+          dispatch(fetchTaskToday(localStorage.getItem("id")));
+        } else if (location.pathname === "/app/upcoming") {
+          dispatch(
+            fetchTaskUpcoming({
+              date: convertToYearDMY(selectedDate),
+              idUser: localStorage.getItem("id"),
+            })
+          );
+        }
       } else {
         toast.error(createTaskResults.EM);
       }
