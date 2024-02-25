@@ -57,12 +57,14 @@ function AppToday() {
               <div className="count-tasks d-flex display align-items-center">
                 <CheckedIcon className="checked-icon" />
                 <span className="num-of-tasks">
-                  {listTasksToday?.length || "0"}
+                  {listTasksToday?.length + listTasksOverdue?.length || "0"}
                 </span>
-                {listTasksToday?.length > 1 ? " tasks" : " task"}
+                {listTasksToday?.length + listTasksOverdue?.length > 1
+                  ? " tasks"
+                  : " task"}
               </div>
               <div className="form-group over-due">
-                <h6>
+                <h6 className="gap-1">
                   {isShowListOverdue ? (
                     <ChevRonDownIcon onClick={() => handleToggleExpand()} />
                   ) : (

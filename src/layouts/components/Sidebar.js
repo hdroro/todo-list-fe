@@ -9,7 +9,8 @@ import {
 } from "../../components/Icon/Icon";
 import AddTask from "../../components/AddTask/AddTask";
 import { useEffect, useState } from "react";
-import { getUserAccount } from "../../services/userService";
+import { getUserAccount, logoutUser } from "../../services/userService";
+import { useSelector } from "react-redux";
 
 function Sidebar(props) {
   const [isShowModalAddTask, setShowModalAddTask] = useState(false);
@@ -53,17 +54,31 @@ function Sidebar(props) {
   const handleCloseModalAddTask = () => {
     setShowModalAddTask(false);
   };
+
+  const listTasksToday = useSelector((state) => state.task.listTasksToday);
+  const listTasksOverdue = useSelector(
+    (state) => state.task_overdue.listTasksOverdue
+  );
+
+  const handleLogout = async () => {
+    await logoutUser();
+
+    localStorage.removeItem("id");
+    localStorage.removeItem("jwt");
+  };
   return (
     <>
       {
         <div className="d-flex flex-column flex-shrink-0 p-3 bg-container">
           <div className="d-flex justify-content-between align-items-center mb-3 mb-md-0 text-decoration-none name-group">
             <div className="dropdown">
-              <a
-                className="btn dropdown-toggle"
-                role="button"
-                id="dropdownMenuLink"
+              <button
+                className="dropdown-toggle "
+                type="button"
+                id="dropdownMenuButton"
                 data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
                 <img
                   src="https://avatars.githubusercontent.com/u/124794082?v=4"
@@ -72,30 +87,29 @@ function Sidebar(props) {
                   height="32"
                   className="rounded-circle me-2"
                 />
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuLink"
-                >
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
                 {inforUser && inforUser.account && (
                   <strong>{inforUser.account.username}</strong>
                 )}
-              </a>
+              </button>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <a className="dropdown-item" href="#">
+                  Change password
+                </a>
+                <a className="dropdown-item" href="#">
+                  My profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a
+                  className="dropdown-item"
+                  href="/"
+                  onClick={() => handleLogout()}
+                >
+                  Log out
+                </a>
+              </div>
             </div>
 
             <button className="toggle-sidebar">
@@ -121,6 +135,9 @@ function Sidebar(props) {
                   dateCurren={new Date().getDate()}
                 />
                 Today
+                <span className="count-tasks">
+                  {listTasksToday?.length + listTasksOverdue?.length || "0"}
+                </span>
               </NavLink>
             </li>
             <li className="nav-item">

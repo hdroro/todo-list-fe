@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../setup/axios";
 
 export const fetchTaskUpcoming = createAsyncThunk(
-  "task/read-today",
+  "task/read-upcoming",
   async ({ date, idUser }) => {
     const response = await axios.get("/api/v1/task/read-upcoming", {
       params: { date, idUser },

@@ -44,6 +44,12 @@
       display: flex;
       align-items: center;
 
+      .count-tasks {
+        position: absolute;
+        right: 30px;
+        // color: #808080;
+      }
+
       .icon-sidebar {
         margin-right: 5px;
       }
@@ -57,5 +63,15 @@
         font-weight: 500;
       }
     }
+  }
+}
+
+.dropdown {
+  button {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+    display: flex;
+    align-items: center;
   }
 }
