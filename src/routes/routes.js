@@ -9,6 +9,7 @@ import AppToday from "../components/AppToday/AppToday";
 import Home from "../components/Home/Home";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Upcoming from "../components/Upcoming/Upcoming";
+import ChangePassword from "../components/ChangePassword/ChangePassword";
 
 //public routes
 const publicRoutes = [
@@ -17,6 +18,11 @@ const publicRoutes = [
   { path: config.register, component: Register, layout: DefaultLayout },
   { path: config.apptoday, component: AppToday, layout: SidebarOnly },
   { path: config.appupcoming, component: Upcoming, layout: SidebarOnly },
+  {
+    path: config.changepassword,
+    component: ChangePassword,
+    layout: DefaultLayout,
+  },
 ];
 
 //private routes

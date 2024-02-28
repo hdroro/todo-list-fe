@@ -52,6 +52,10 @@ const handleUpdateUser = (id, username, address, gender, group) => {
   });
 };
 
+const handleChangePassword = (id, oldPassword, newPassword) => {
+  return axios.put("/api/v1/change-password", { id, oldPassword, newPassword });
+};
+
 const getUserAccount = () => {
   return axios.get("/api/v1/account");
 };
@@ -66,4 +70,5 @@ export {
   handleUpdateUser,
   getUserAccount,
   logoutUser,
+  handleChangePassword,
 };

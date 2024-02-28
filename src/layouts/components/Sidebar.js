@@ -11,6 +11,8 @@ import AddTask from "../../components/AddTask/AddTask";
 import { useEffect, useState } from "react";
 import { getUserAccount, logoutUser } from "../../services/userService";
 import { useSelector } from "react-redux";
+import routes from "../../config/routes";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Sidebar(props) {
   const [isShowModalAddTask, setShowModalAddTask] = useState(false);
@@ -95,12 +97,10 @@ function Sidebar(props) {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to={routes.changepassword}>
                   Change password
-                </a>
-                <a className="dropdown-item" href="#">
-                  My profile
-                </a>
+                </Link>
+
                 <div class="dropdown-divider"></div>
                 <a
                   className="dropdown-item"
